@@ -8,7 +8,12 @@ const createOrder = async (req: Request, res: Response) => {
     const result = await OrderServices.createOrderIntoDB(orderData);
     handleOrderResponse(res, 200, true, 'Order created successfully', result);
   } catch (err) {
-    handleOrderResponse(res, 500, false, 'Failed to create order', err);
+    if (err instanceof Error) {
+      const statusCode = err.message.includes('Car not found.') ? 404 : 400;
+      handleOrderResponse(res, statusCode, false, err.message, { stack: err.stack });
+    } else {
+      handleOrderResponse(res, 500, false, 'Failed to create order', err);
+    }
   }
 };
 

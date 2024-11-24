@@ -19,7 +19,13 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         (0, handleResponse_1.handleOrderResponse)(res, 200, true, 'Order created successfully', result);
     }
     catch (err) {
-        (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to create order', err);
+        if (err instanceof Error) {
+            const statusCode = err.message.includes('Car not found.') ? 404 : 400;
+            (0, handleResponse_1.handleOrderResponse)(res, statusCode, false, err.message, { stack: err.stack });
+        }
+        else {
+            (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to create order', err);
+        }
     }
 });
 const getRevenue = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
