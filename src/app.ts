@@ -11,7 +11,7 @@ app.use(cors());
 
 //application routes
 app.use('/api/cars', CarRoutes);
-app.use('/api', OrderRoutes);
+app.use('/api/orders', OrderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello! Welcome to carstore backend');
