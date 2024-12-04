@@ -33,7 +33,7 @@ const getSingleCarFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* 
     return result;
 });
 const updateSingleCarInDB = (_id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield car_model_1.CarModel.findByIdAndUpdate(_id, payload);
+    const result = yield car_model_1.CarModel.findByIdAndUpdate(_id, payload, { new: true });
     return result;
 });
 const deleteSingleCarFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* () {

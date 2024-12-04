@@ -14,18 +14,18 @@ const car_model_1 = require("../car/car.model");
 const order_model_1 = require("./order.model");
 const createOrderIntoDB = (order) => __awaiter(void 0, void 0, void 0, function* () {
     const { car, quantity } = order;
-    const carInStock = yield car_model_1.CarModel.findById(car);
-    if (!carInStock) {
+    const isCarAvailable = yield car_model_1.CarModel.findById(car);
+    if (!isCarAvailable) {
         throw new Error('Car not found.');
     }
-    if (carInStock.quantity < quantity) {
-        throw new Error(`Insufficient stock for this car. Available stock ${carInStock.quantity}`);
+    if (isCarAvailable.quantity < quantity) {
+        throw new Error(`Insufficient stock for this car. Available stock ${isCarAvailable.quantity}`);
     }
-    carInStock.quantity -= quantity;
-    if (carInStock.quantity === 0) {
-        carInStock.inStock = false;
+    isCarAvailable.quantity -= quantity;
+    if (isCarAvailable.quantity === 0) {
+        isCarAvailable.inStock = false;
     }
-    yield carInStock.save();
+    yield isCarAvailable.save();
     const result = yield order_model_1.OrderModel.create(order);
     return result;
 });

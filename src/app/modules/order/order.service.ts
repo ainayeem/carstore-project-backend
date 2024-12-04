@@ -4,21 +4,21 @@ import { OrderModel } from './order.model';
 
 const createOrderIntoDB = async (order: TOrder) => {
   const { car, quantity } = order;
-  const carInStock = await CarModel.findById(car);
+  const isCarAvailable = await CarModel.findById(car);
 
-  if (!carInStock) {
+  if (!isCarAvailable) {
     throw new Error('Car not found.');
   }
 
-  if (carInStock.quantity < quantity) {
-    throw new Error(`Insufficient stock for this car. Available stock ${carInStock.quantity}`);
+  if (isCarAvailable.quantity < quantity) {
+    throw new Error(`Insufficient stock for this car. Available stock ${isCarAvailable.quantity}`);
   }
-  carInStock.quantity -= quantity;
+  isCarAvailable.quantity -= quantity;
 
-  if (carInStock.quantity === 0) {
-    carInStock.inStock = false;
+  if (isCarAvailable.quantity === 0) {
+    isCarAvailable.inStock = false;
   }
-  await carInStock.save();
+  await isCarAvailable.save();
 
   const result = await OrderModel.create(order);
   return result;
