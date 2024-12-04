@@ -37,8 +37,8 @@ const updateSingleCarInDB = (_id, payload) => __awaiter(void 0, void 0, void 0, 
     return result;
 });
 const deleteSingleCarFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield car_model_1.CarModel.findByIdAndDelete(_id);
-    return result;
+    yield car_model_1.CarModel.findByIdAndDelete(_id);
+    return {};
 });
 exports.CarServices = {
     createCarIntoDB,

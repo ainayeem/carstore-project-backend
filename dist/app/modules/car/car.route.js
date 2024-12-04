@@ -7,7 +7,7 @@ exports.CarRoutes = void 0;
 const express_1 = __importDefault(require("express"));
 const car_controller_1 = require("./car.controller");
 const router = express_1.default.Router();
-router.post('/create-car', car_controller_1.CarControllers.createCar);
+router.post('/', car_controller_1.CarControllers.createCar);
 router.get('/', car_controller_1.CarControllers.getAllCars);
 router.get('/:carId', car_controller_1.CarControllers.getSingleCar);
 router.put('/:carId', car_controller_1.CarControllers.updateSingleCar);

@@ -26,20 +26,20 @@ const getAllCars = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { searchTerm } = req.query;
         const result = yield car_service_1.CarServices.getAllCarsFromDB(searchTerm);
-        (0, handleResponse_1.handleCarResponse)(res, 200, true, 'Cars retrieved successfully', result);
+        (0, handleResponse_1.handleOrderResponse)(res, 200, true, 'Cars retrieved successfully', result);
     }
     catch (err) {
-        (0, handleResponse_1.handleCarResponse)(res, 500, false, 'Failed to retrieve cars', err);
+        (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to retrieve cars', err);
     }
 });
 const getSingleCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { carId } = req.params;
         const result = yield car_service_1.CarServices.getSingleCarFromDB(carId);
-        (0, handleResponse_1.handleCarResponse)(res, 200, true, 'Car retrieved successfully', result);
+        (0, handleResponse_1.handleOrderResponse)(res, 200, true, 'Car retrieved successfully', result);
     }
     catch (err) {
-        (0, handleResponse_1.handleCarResponse)(res, 500, false, 'Failed to retrieve car', err);
+        (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to retrieve car', err);
     }
 });
 const updateSingleCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,20 +47,23 @@ const updateSingleCar = (req, res) => __awaiter(void 0, void 0, void 0, function
         const { carId } = req.params;
         const body = req.body;
         const result = yield car_service_1.CarServices.updateSingleCarInDB(carId, body);
-        (0, handleResponse_1.handleCarResponse)(res, 200, true, 'Car updated successfully', result);
+        (0, handleResponse_1.handleOrderResponse)(res, 200, true, 'Car updated successfully', result);
     }
     catch (err) {
-        (0, handleResponse_1.handleCarResponse)(res, 500, false, 'Failed to update car', err);
+        (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to update car', err);
     }
 });
 const deleteSingleCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { carId } = req.params;
+        if (!carId) {
+            throw new Error('Car ID is not given');
+        }
         const result = yield car_service_1.CarServices.deleteSingleCarFromDB(carId);
-        (0, handleResponse_1.handleCarResponse)(res, 200, true, 'Car deleted successfully', result);
+        (0, handleResponse_1.handleOrderResponse)(res, 200, true, 'Car deleted successfully', result);
     }
     catch (err) {
-        (0, handleResponse_1.handleCarResponse)(res, 500, false, 'Failed to delete car', err);
+        (0, handleResponse_1.handleOrderResponse)(res, 500, false, 'Failed to delete car', err);
     }
 });
 exports.CarControllers = {
