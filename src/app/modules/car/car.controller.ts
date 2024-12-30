@@ -4,8 +4,8 @@ import { handleCarResponse, handleOrderResponse as handleResponse } from '../han
 
 const createCar = async (req: Request, res: Response) => {
   try {
-    const { car: carData } = req.body;
-    const result = await CarServices.createCarIntoDB(carData);
+    // const { car: carData } = req.body;
+    const result = await CarServices.createCarIntoDB(req.body);
     handleCarResponse(res, 200, true, 'Car created successfully', result);
   } catch (err) {
     handleCarResponse(res, 500, false, 'Failed to create car', err);

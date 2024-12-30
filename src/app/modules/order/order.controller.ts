@@ -4,8 +4,8 @@ import { handleOrderResponse } from '../handleResponse/handleResponse';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { order: orderData } = req.body;
-    const result = await OrderServices.createOrderIntoDB(orderData);
+    // const { order: orderData } = req.body;
+    const result = await OrderServices.createOrderIntoDB(req.body);
     handleOrderResponse(res, 200, true, 'Order created successfully', result);
   } catch (err) {
     if (err instanceof Error) {
